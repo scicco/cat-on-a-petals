@@ -12,4 +12,8 @@ This plugin will enable the use of Petals Config as LLM in Cheshire Cat AI.
 2. Go to the settings page.
 3. Click on "Configure" under Large Language Model section.
 4. Select the "Petals" model.
+5. Insert the desired model
+6. Insert the huggingface token
 5. Save your settings.
+
+![image](settings.png)

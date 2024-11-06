@@ -1,6 +1,5 @@
 from cat.factory.llm import LLMSettings
 from cat.mad_hatter.decorators import hook
-from cat.factory.llm import LLMSettings
 from typing import List, Type
 from pydantic import ConfigDict
 from langchain_community.llms import Petals
