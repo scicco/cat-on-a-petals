@@ -1,0 +1,7 @@
+petals @ git+https://github.com/bigscience-workshop/petals
+hivemind @ git+https://github.com/learning-at-home/hivemind.git@213bff98a62accb91f254e2afdccbf1d69ebdea9
+#typing-extensions>=4.9.0
+#protobuf==4.25.5
+#pydantic>=2.4.2
+#huggingface-hub>=0.20.3
+#unstructured>=0.12.6
