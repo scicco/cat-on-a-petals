@@ -6,6 +6,10 @@
 
 This plugin will enable the use of Petals Config as LLM in Cheshire Cat AI.
 
+## Prerequisites
+
+To use this plugin you need to switch to the `features/petals` branch of my [Cheshire Cat AI core](https://github.com/scicco/core/tree/features/petals) repository that updates all the dependencies to work with Petals.
+
 ## Usage
 
 1. Load the plugin in Cheshire Cat AI.
