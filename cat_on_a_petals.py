@@ -27,28 +27,31 @@ class LLMPetalsConfig(LLMSettings):
     )
 
 
+@hook
+def factory_allowed_llms(allowed, cat) -> List:
+    allowed.append(LLMPetalsConfig)
+    return allowed
+
+
 def install_dependencies():
     bash_command = """
     apt-get update && \
     apt-get install git -y && \
     python -m pip install --upgrade pip
+    mv /app/pyproject.toml /app/pyproject.toml.original && \
+    cp /app/cat/plugins/cat_on_a_petals/patches/pyproject.toml /app/pyproject.toml
     """
 
     os.system(bash_command)
 
     bash_command = """
-    python -m pip install --no-cache-dir --upgrade fastembed==0.3.6 && \
-    python -m pip install --no-cache-dir --upgrade typing-extensions>=4.9.0 && \
-    python -m pip install --no-cache-dir --upgrade qdrant_client==1.11.0 && \
-    python -m pip install --no-cache-dir --upgrade protobuf==4.25.5 && \
-    python -m pip install --no-cache-dir --upgrade pydantic>=2.4.2 && \
-    python -m pip install --no-cache-dir --upgrade huggingface-hub>=0.20.3 && \
-    python -m pip install --no-cache-dir --upgrade unstructured>=0.12.6 && \
-    python -m pip install --no-cache-dir git+https://github.com/bigscience-workshop/petals && \
-    python -m pip install --no-cache-dir git+https://github.com/learning-at-home/hivemind.git@213bff98a62accb91f254e2afdccbf1d69ebdea9 && \
-    python -m pip install --no-cache-dir --upgrade protobuf
+    pip install -U pip && \
+    cd /app && \
+    pip install --force-reinstall --no-cache-dir . && \
+    pip install --no-cache-dir --ignore-installed --upgrade protobuf==5.28.3
     """
     os.system(bash_command)
+
     log.info("Finished installing dependencies for Petals")
 
 
@@ -65,7 +68,19 @@ def activated(plugin):
         t.join()
 
 
-@hook
-def factory_allowed_llms(allowed, cat) -> List:
-    allowed.append(LLMPetalsConfig)
-    return allowed
+@plugin
+def deactivated(plugin):
+    bash_command = """
+    mv /app/pyproject.toml.original /app/pyproject.toml
+    """
+    os.system(bash_command)
+
+    bash_command = """
+    pip install -U pip && \
+    cd /app && \
+    pip uninstall protobuf -y && \
+    pip install --force-reinstall --no-cache-dir .
+    """
+    os.system(bash_command)
+
+    log.info("Finished uninstalling dependencies for Petals")
