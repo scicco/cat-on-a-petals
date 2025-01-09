@@ -1,7 +1,7 @@
 {
     "name": "Cat on a Petals",
-    "version": "0.0.1",
-    "description": "add Petals llm config to cheshirecat.ai",
+    "version": "1.0.0",
+    "description": "add Petals LLM config to cheshirecat.ai",
     "author_name": "scicco",
     "author_url": "https://github.com/scicco",
     "plugin_url": "https://github.com/scicco/cat-on-a-petals.git",
